@@ -15,16 +15,39 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Dependency Versions sorted alphabetically -->
+        <jsge.version>1.0-SNAPSHOT</jsge.version>
         <logback.version>1.2.5</logback.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.mwttg</groupId>
+            <artifactId>java-simple-game-engine</artifactId>
+            <version>${jsge.version}</version>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>com.github.mwttg.jsget.Application</mainClass>
+                    <systemProperties>
+                        <key>MAVEN_OPTS</key>
+                        <value>-XstartOnFirstThread</value>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <url>https://github.com/mwttg/java-simple-game-engine-test</url>
     <organization>
