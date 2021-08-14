@@ -4,6 +4,7 @@
 * Java 16
 * Maven 3.8.1
 * x64 OS (MacOs, Linux, Windows)
+* OpenGL 4.0
 
 ## Build the project
 Make sure you have the `java-simple-game-engine` library [dependency][jsge] inside your local Maven repository.
