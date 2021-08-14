@@ -1,9 +1,10 @@
 package com.github.mwttg.jsget;
 
-import com.github.mwttg.sjge.graphics.GameWindow;
 import com.github.mwttg.sjge.graphics.window.Configuration;
+import com.github.mwttg.sjge.graphics.window.GameWindow;
 import com.github.mwttg.sjge.graphics.window.OpenGlConfiguration;
 import com.github.mwttg.sjge.logic.MainLoop;
+import com.github.mwttg.sjge.utilities.CleanUpUtilities;
 
 import java.io.IOException;
 
@@ -17,5 +18,7 @@ public class Application {
 
         final var mainLoop = new MainLoop();
         mainLoop.loop(gameWindowId);
+
+        CleanUpUtilities.purge();
     }
 }
