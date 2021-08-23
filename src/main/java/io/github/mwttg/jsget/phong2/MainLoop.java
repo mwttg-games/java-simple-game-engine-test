@@ -4,9 +4,8 @@ import io.github.mwttg.jsget.EntityHelper;
 import io.github.mwttg.jsget.LightFactory;
 import io.github.mwttg.sjge.configuration.Configuration;
 import io.github.mwttg.sjge.graphics.draw.light.PointLight;
-import io.github.mwttg.sjge.graphics.draw.phong.PhongPipeline;
-import io.github.mwttg.sjge.graphics.draw.textured.Draw;
-import io.github.mwttg.sjge.graphics.draw.textured.TexturedPipeline;
+import io.github.mwttg.sjge.graphics.draw.phong.PhongRendering;
+import io.github.mwttg.sjge.graphics.draw.textured.TexturedRendering;
 import io.github.mwttg.sjge.graphics.entity.Drawable;
 import io.github.mwttg.sjge.graphics.entity.MatrixStack;
 import org.joml.Matrix4f;
@@ -16,17 +15,16 @@ import org.lwjgl.opengl.GL40;
 
 public class MainLoop {
 
-  private static final PhongPipeline PIPELINE = new PhongPipeline();
-
-  private static final TexturedPipeline LIGHT_PIPELINE = new TexturedPipeline();
+  private static final PhongRendering PHONG_RENDERING = new PhongRendering();
+  private static final TexturedRendering TEXTURED_RENDERING = new TexturedRendering();
 
   private final Configuration configuration;
 
-  public MainLoop(final Configuration configuration) {
+  MainLoop(final Configuration configuration) {
     this.configuration = configuration;
   }
 
-  public void loop(final long gameWindowId) {
+  void loop(final long gameWindowId) {
     var light = LightFactory.DEFAULT;
     var lightEntity = EntityHelper.createDefaultCube(configuration, light.position());
 
@@ -47,9 +45,9 @@ public class MainLoop {
       lightEntity = moveLightEntity(lightEntity, rotation);
       light = moveLight(light, rotation);
 
-      PIPELINE.draw(entity1, light);
-      PIPELINE.draw(entity2, light);
-      LIGHT_PIPELINE.draw(lightEntity);
+      PHONG_RENDERING.draw(entity1, light);
+      PHONG_RENDERING.draw(entity2, light);
+      TEXTURED_RENDERING.draw(lightEntity);
 
       GLFW.glfwSwapBuffers(gameWindowId);
       GLFW.glfwPollEvents();

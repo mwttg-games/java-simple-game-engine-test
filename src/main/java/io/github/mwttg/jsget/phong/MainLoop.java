@@ -1,12 +1,12 @@
 package io.github.mwttg.jsget.phong;
 
-import io.github.mwttg.sjge.configuration.Configuration;
-import io.github.mwttg.sjge.graphics.draw.light.PointLight;
-import io.github.mwttg.sjge.graphics.draw.phong.PhongPipeline;
-import io.github.mwttg.sjge.graphics.entity.Drawable;
-import io.github.mwttg.sjge.graphics.entity.MatrixStack;
 import io.github.mwttg.jsget.EntityHelper;
 import io.github.mwttg.jsget.LightFactory;
+import io.github.mwttg.sjge.configuration.Configuration;
+import io.github.mwttg.sjge.graphics.draw.light.PointLight;
+import io.github.mwttg.sjge.graphics.draw.phong.PhongRendering;
+import io.github.mwttg.sjge.graphics.entity.Drawable;
+import io.github.mwttg.sjge.graphics.entity.MatrixStack;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL40;
 
 public class MainLoop {
 
-  private static final PhongPipeline PIPELINE = new PhongPipeline();
+  private static final PhongRendering PHONG_RENDERING = new PhongRendering();
 
   private final Configuration configuration;
 
@@ -36,7 +36,7 @@ public class MainLoop {
       entity = rotateCube(entity, rotation);
       light = slowPulsingLight(light);
 
-      PIPELINE.draw(entity, light);
+      PHONG_RENDERING.draw(entity, light);
 
       GLFW.glfwSwapBuffers(gameWindowId);
       GLFW.glfwPollEvents();
