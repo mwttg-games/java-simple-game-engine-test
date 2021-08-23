@@ -9,7 +9,7 @@ public interface LightFactory {
 
   private static PointLight createDefault() {
     final var color = new Vector3f(1.0f, 1.0f, 1.0f);
-    final var position = new Vector3f(5.0f, 10.0f, 5.0f);
+    final var position = new Vector3f(5.0f, 0.0f, 5.0f);
     final var gamma = 1.2f;
 
     return new PointLight(color, position, gamma);

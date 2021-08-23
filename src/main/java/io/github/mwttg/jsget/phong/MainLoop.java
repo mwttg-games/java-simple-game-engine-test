@@ -7,6 +7,7 @@ import io.github.mwttg.sjge.graphics.entity.Drawable;
 import io.github.mwttg.sjge.graphics.entity.MatrixStack;
 import io.github.mwttg.jsget.EntityHelper;
 import io.github.mwttg.jsget.LightFactory;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL40;
@@ -23,30 +24,33 @@ public class MainLoop {
 
   public void loop(final long gameWindowId) {
     var light = LightFactory.DEFAULT;
-    var entity = EntityHelper.createDefaultCube(configuration);
-    PIPELINE.addEntity(entity);
+    var entity = EntityHelper.createDefaultCube(configuration, light.position());
+    var rotation = 0.0f;
 
     while (!GLFW.glfwWindowShouldClose(gameWindowId)) {
       GL40.glClear(GL40.GL_COLOR_BUFFER_BIT | GL40.GL_DEPTH_BUFFER_BIT);
 
-      entity = rotateCube(entity);
-      light = modifyLight(light);
+      rotation = rotation + 0.01f;
+      if (rotation > 360) rotation = 0.0f;
 
-      PIPELINE.draw(light);
+      entity = rotateCube(entity, rotation);
+      light = slowPulsingLight(light);
+
+      PIPELINE.draw(entity, light);
 
       GLFW.glfwSwapBuffers(gameWindowId);
       GLFW.glfwPollEvents();
     }
   }
 
-  private Drawable rotateCube(final Drawable entity) {
-    final var modified = entity.matrixStack().modelMatrix().translate(0.0f, 0.0f, 0.0f).rotateY(0.05f).rotateZ(0.05f);
+  private Drawable rotateCube(final Drawable entity, final float rotation) {
+    final var modified = new Matrix4f().translate(0.0f, 0.0f, 0.0f).rotateY(rotation).rotateZ(rotation);
     final var modifiedMatrixStack = new MatrixStack(modified, entity.matrixStack().viewMatrix(), entity.matrixStack().projectionMatrix());
 
     return new Drawable(entity.ids(), modifiedMatrixStack, entity.material());
   }
 
-  private PointLight modifyLight(final PointLight light) {
+  private PointLight slowPulsingLight(final PointLight light) {
     var c = light.color().x;
     if (c < 0.1f) {
       c = 1.0f;

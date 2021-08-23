@@ -18,12 +18,11 @@ public class MainLoop {
 
   public void loop(final long gameWindowId) {
     var entity = EntityHelper.createDefaultPlane(configuration);
-    PIPELINE.addEntity(entity);
 
     while (!GLFW.glfwWindowShouldClose(gameWindowId)) {
       GL40.glClear(GL40.GL_COLOR_BUFFER_BIT | GL40.GL_DEPTH_BUFFER_BIT);
 
-      PIPELINE.draw();
+      PIPELINE.draw(entity);
 
       GLFW.glfwSwapBuffers(gameWindowId);
       GLFW.glfwPollEvents();
