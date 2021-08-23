@@ -1,8 +1,8 @@
 package com.github.mwttg.jsget;
 
-import com.github.mwttg.sjge.graphics.window.GameWindow;
-import com.github.mwttg.sjge.logic.MainLoop;
-import com.github.mwttg.sjge.utilities.CleanUpUtilities;
+import io.github.mwttg.sjge.graphics.window.GameWindow;
+import io.github.mwttg.sjge.logic.MainLoop;
+import io.github.mwttg.sjge.utilities.CleanUpUtilities;
 
 import java.io.IOException;
 

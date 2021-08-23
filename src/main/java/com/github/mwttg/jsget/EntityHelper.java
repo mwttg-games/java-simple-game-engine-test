@@ -1,10 +1,10 @@
 package com.github.mwttg.jsget;
 
-import com.github.mwttg.sjge.Entity;
-import com.github.mwttg.sjge.graphics.draw.TextureLoader;
-import com.github.mwttg.sjge.graphics.draw.VboDefinition;
-import com.github.mwttg.sjge.graphics.draw.VertexArrayObject;
-import com.github.mwttg.sjge.graphics.draw.VertexBufferObject;
+import io.github.mwttg.sjge.Entity;
+import io.github.mwttg.sjge.graphics.draw.TextureLoader;
+import io.github.mwttg.sjge.graphics.draw.VboDefinition;
+import io.github.mwttg.sjge.graphics.draw.VertexArrayObject;
+import io.github.mwttg.sjge.graphics.draw.VertexBufferObject;
 import io.github.mwttg.wavefront.WavefrontReader;
 import org.lwjgl.opengl.GL40;
 

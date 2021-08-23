@@ -1,9 +1,9 @@
 package com.github.mwttg.jsget;
 
-import com.github.mwttg.sjge.configuration.Configuration;
-import com.github.mwttg.sjge.configuration.GameWindowConfiguration;
-import com.github.mwttg.sjge.configuration.OpenGlConfiguration;
-import com.github.mwttg.sjge.configuration.ViewPortConfiguration;
+import io.github.mwttg.sjge.configuration.Configuration;
+import io.github.mwttg.sjge.configuration.GameWindowConfiguration;
+import io.github.mwttg.sjge.configuration.OpenGlConfiguration;
+import io.github.mwttg.sjge.configuration.ViewPortConfiguration;
 
 public final class EngineConfiguration {
 

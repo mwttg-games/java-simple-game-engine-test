@@ -1,77 +1,60 @@
 package io.github.mwttg.jsget.phong;
 
-import com.github.mwttg.sjge.configuration.Configuration;
-import com.github.mwttg.sjge.graphics.draw.MatrixStack;
-import com.github.mwttg.sjge.graphics.draw.phong.Material;
-import com.github.mwttg.sjge.graphics.draw.phong.PhongPipeline;
-import com.github.mwttg.sjge.graphics.draw.phong.PointLight;
-import com.github.mwttg.sjge.utilities.MatrixStackUtilities;
-import org.joml.Matrix4f;
+import io.github.mwttg.sjge.configuration.Configuration;
+import io.github.mwttg.sjge.graphics.draw.light.PointLight;
+import io.github.mwttg.sjge.graphics.draw.phong.PhongPipeline;
+import io.github.mwttg.sjge.graphics.entity.Drawable;
+import io.github.mwttg.sjge.graphics.entity.MatrixStack;
+import io.github.mwttg.jsget.EntityHelper;
+import io.github.mwttg.jsget.LightFactory;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL40;
 
 public class MainLoop {
 
-  private final PhongPipeline pipeline;
-  private final Material material;
-  private MatrixStack matrixStack;
-  private PointLight light;
+  private static final PhongPipeline PIPELINE = new PhongPipeline();
 
-  private Vector3f color;
+  private final Configuration configuration;
 
   public MainLoop(final Configuration configuration) {
-    final var projectionMatrix = MatrixStackUtilities.getProjectionMatrix(configuration);
-    final var viewMatrix = MatrixStackUtilities.getDefaultViewMatrix();
-    final var modelMatrix = new Matrix4f().translate(0, 0, 0);
-    this.matrixStack = new MatrixStack(modelMatrix, viewMatrix, projectionMatrix);
-
-    color = new Vector3f(1.0f, 1.0f, 1.0f);
-    final var position = new Vector3f(5.0f, 10.0f, 5.0f);
-    final var gamma = 1.2f;
-    this.light = new PointLight(color, position, gamma);
-
-    final var ambient = new Vector3f(0.2f, 0.2f, 0.2f);
-    final var diffuse = new Vector3f(1.0f, 1.0f, 1.0f);
-    final var specular = new Vector3f(1.0f, 1.0f, 1.0f);
-    final var exponent = 1.2f;
-    this.material = new Material(ambient, diffuse, specular, exponent);
-
-    final var entity = EntityHelper.createDefaultCube();
-
-    this.pipeline = new PhongPipeline();
-    pipeline.addEntity(entity);
+    this.configuration = configuration;
   }
 
   public void loop(final long gameWindowId) {
+    var light = LightFactory.DEFAULT;
+    var entity = EntityHelper.createDefaultCube(configuration);
+    PIPELINE.addEntity(entity);
+
     while (!GLFW.glfwWindowShouldClose(gameWindowId)) {
       GL40.glClear(GL40.GL_COLOR_BUFFER_BIT | GL40.GL_DEPTH_BUFFER_BIT);
 
-      pipeline.draw(matrixStack, light, material);
+      entity = rotateCube(entity);
+      light = modifyLight(light);
 
-      rotateCube();
-      modifyLight();
+      PIPELINE.draw(light);
 
       GLFW.glfwSwapBuffers(gameWindowId);
       GLFW.glfwPollEvents();
     }
   }
 
-  private void rotateCube() {
-    final var modelMatrix = this.matrixStack.modelMatrix();
-    final var modified = new Matrix4f(modelMatrix).translate(0.0f, 0.0f, 0.0f).rotateX(0.05f).rotateY(0.05f);
-    this.matrixStack = new MatrixStack(modified, this.matrixStack.viewMatrix(), this.matrixStack.projectionMatrix());
+  private Drawable rotateCube(final Drawable entity) {
+    final var modified = entity.matrixStack().modelMatrix().translate(0.0f, 0.0f, 0.0f).rotateY(0.05f).rotateZ(0.05f);
+    final var modifiedMatrixStack = new MatrixStack(modified, entity.matrixStack().viewMatrix(), entity.matrixStack().projectionMatrix());
+
+    return new Drawable(entity.ids(), modifiedMatrixStack, entity.material());
   }
 
-  private void modifyLight() {
-    var  c = light.color().x;
+  private PointLight modifyLight(final PointLight light) {
+    var c = light.color().x;
     if (c < 0.1f) {
       c = 1.0f;
-    } else  {
+    } else {
       c = c - 0.01f;
     }
 
     final var modified = new Vector3f(c, c, c);
-    this.light = new PointLight(modified, light.position(), light.gamma());
+    return new PointLight(modified, light.position(), light.gamma());
   }
 }
