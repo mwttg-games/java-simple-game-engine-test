@@ -1,6 +1,6 @@
 package io.github.mwttg.jsget;
 
-import io.github.mwttg.sjge.graphics.entity.Material;
+import io.github.mwttg.sjge.graphics.draw.material.Material;
 import org.joml.Vector3f;
 
 public interface MaterialFactory {

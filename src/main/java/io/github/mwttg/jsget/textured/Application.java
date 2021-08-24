@@ -4,7 +4,6 @@ package io.github.mwttg.jsget.textured;
 import io.github.mwttg.jsget.EngineConfiguration;
 import io.github.mwttg.jsget.EntityHelper;
 import io.github.mwttg.sjge.graphics.window.GameWindow;
-
 import io.github.mwttg.sjge.utilities.CleanUpUtilities;
 
 import java.io.IOException;

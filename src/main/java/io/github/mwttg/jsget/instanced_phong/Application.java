@@ -1,4 +1,4 @@
-package io.github.mwttg.jsget.phong;
+package io.github.mwttg.jsget.instanced_phong;
 
 import io.github.mwttg.jsget.EngineConfiguration;
 import io.github.mwttg.jsget.EntityHelper;

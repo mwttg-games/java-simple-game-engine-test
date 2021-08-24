@@ -1,8 +1,8 @@
 package io.github.mwttg.jsget;
 
 import io.github.mwttg.sjge.configuration.Configuration;
-import io.github.mwttg.sjge.graphics.entity.Drawable;
-import io.github.mwttg.sjge.graphics.entity.MatrixStack;
+import io.github.mwttg.sjge.graphics.draw.single.entity.Drawable;
+import io.github.mwttg.sjge.graphics.draw.single.entity.MatrixStack;
 import io.github.mwttg.sjge.utilities.MatrixStackUtilities;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

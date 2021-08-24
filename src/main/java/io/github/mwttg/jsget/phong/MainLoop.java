@@ -4,9 +4,9 @@ import io.github.mwttg.jsget.EntityHelper;
 import io.github.mwttg.jsget.LightFactory;
 import io.github.mwttg.sjge.configuration.Configuration;
 import io.github.mwttg.sjge.graphics.draw.light.PointLight;
-import io.github.mwttg.sjge.graphics.draw.phong.PhongRendering;
-import io.github.mwttg.sjge.graphics.entity.Drawable;
-import io.github.mwttg.sjge.graphics.entity.MatrixStack;
+import io.github.mwttg.sjge.graphics.draw.single.entity.Drawable;
+import io.github.mwttg.sjge.graphics.draw.single.entity.MatrixStack;
+import io.github.mwttg.sjge.graphics.draw.single.phong.PhongRendering;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
@@ -24,7 +24,7 @@ public class MainLoop {
 
   public void loop(final long gameWindowId) {
     var light = LightFactory.DEFAULT;
-    var entity = EntityHelper.createDefaultCube(configuration, light.position());
+    var entity = EntityHelper.createDefaultCube(configuration);
     var rotation = 0.0f;
 
     while (!GLFW.glfwWindowShouldClose(gameWindowId)) {

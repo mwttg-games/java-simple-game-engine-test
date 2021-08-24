@@ -2,7 +2,7 @@ package io.github.mwttg.jsget.textured;
 
 import io.github.mwttg.jsget.EntityHelper;
 import io.github.mwttg.sjge.configuration.Configuration;
-import io.github.mwttg.sjge.graphics.draw.textured.TexturedRendering;
+import io.github.mwttg.sjge.graphics.draw.single.textured.TexturedRendering;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL40;
 
